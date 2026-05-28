@@ -1,6 +1,6 @@
 {
   "name": "react-i-zone",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React polygon zone editor component with vertex editing and overlap validation",
   "author": "jdeseva",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "dist/index.d.ts",
     "README.md",
     "README.zh-CN.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "scripts": {
@@ -35,7 +36,12 @@
     "preview": "vite preview",
     "test": "vitest run",
     "pack:check": "npm pack --dry-run",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "release": "standard-version",
+    "release:patch": "standard-version --release-as patch",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:first": "standard-version --first-release"
   },
   "peerDependencies": {
     "@ant-design/icons": ">=5.0.0",
@@ -59,7 +65,8 @@
     "vite": "^6.0.1",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-lib-inject-css": "^2.2.1",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.7",
+    "standard-version": "^9.5.0"
   },
   "keywords": [
     "react",
