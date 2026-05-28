@@ -86,11 +86,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jdeseva/react-i-zone.git"
+    "url": "git+https://github.com/JdesEva/react-i-zone.git"
   },
-  "homepage": "https://github.com/jdeseva/react-i-zone#readme",
+  "homepage": "https://github.com/JdesEva/react-i-zone#readme",
   "bugs": {
-    "url": "https://github.com/jdeseva/react-i-zone/issues"
+    "url": "https://github.com/JdesEva/react-i-zone/issues"
   },
   "publishConfig": {
     "access": "public"

@@ -9,7 +9,7 @@ Use it for image hotspot annotation, polygon area selection, and interactive pol
 
 ## Demo
 
-![react-i-zone demo](https://raw.githubusercontent.com/jdeseva/react-i-zone/main/assets/demo-kit-small.gif)
+![react-i-zone demo](https://raw.githubusercontent.com/JdesEva/react-i-zone/main/assets/demo-kit-small.gif)
 
 ## Install
 
