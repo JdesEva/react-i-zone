@@ -6,7 +6,7 @@
 
 ## 演示
 
-![react-i-zone 演示](https://raw.githubusercontent.com/jdeseva/react-i-zone/main/assets/demo-kit-small.gif)
+![react-i-zone 演示](https://raw.githubusercontent.com/JdesEva/react-i-zone/main/assets/demo-kit-small.gif)
 
 ## 安装
 
