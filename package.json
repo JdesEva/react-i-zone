@@ -1,6 +1,6 @@
 {
   "name": "react-i-zone",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "React polygon zone editor component with vertex editing and overlap validation",
   "author": "jdeseva",
   "license": "MIT",

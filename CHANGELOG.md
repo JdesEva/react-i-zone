@@ -2,6 +2,8 @@
 
 All notable changes to `react-i-zone` are documented in this file.
 
+## [1.0.0](https://github.com/jdeseva/react-i-zone/compare/v0.1.1...v1.0.0) (2026-05-28)
+
 ### 0.1.1 (2026-05-28)
 
 
