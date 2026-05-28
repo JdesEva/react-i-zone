@@ -102,3 +102,15 @@ npm run test
 npm run pack:check
 ```
 
+## 发版
+
+使用 [Conventional Commits](https://www.conventionalcommits.org/) + `standard-version`：
+
+```bash
+npm run release          # 按提交类型自动升版本并更新 CHANGELOG、打 tag
+npm run release:patch    # 指定 patch
+npm run release:minor    # 指定 minor
+npm run release:major    # 指定 major
+npm run build && npm publish
+```
+

@@ -149,6 +149,18 @@ npm run test
 npm run pack:check
 ```
 
+## Release
+
+Uses [Conventional Commits](https://www.conventionalcommits.org/) + `standard-version`:
+
+```bash
+npm run release          # bump version + CHANGELOG + git tag (by commit types)
+npm run release:patch    # force patch
+npm run release:minor    # force minor
+npm run release:major    # force major
+npm run build && npm publish
+```
+
 ## License
 
 MIT © jdeseva
