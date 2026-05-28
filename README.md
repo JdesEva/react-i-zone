@@ -1,51 +1,73 @@
 # react-i-zone
 
-React **多边形热区编辑**组件（背景图 + 画点闭合 / 改边数 / 撤销）。
+React polygon zone editor / hotspot editor component.  
+Use it for image hotspot annotation, polygon area selection, and interactive polygon vertex editing.
 
-**作者：** jdeseva
+`react-i-zone` focuses on geometry editing only: draw polygon, move vertex, move region, validate overlap/self-intersection, and undo.
 
-## 范围
+[English](./README.md) | [简体中文](./README.zh-CN.md)
 
-| 包含 | 不包含（由宿主应用实现） |
-|------|-------------------------|
-| 多边形画点、闭合 | 业务字段解析/序列化 |
-| 改边数（外侧加点、删顶点） | Modal / Drawer 外壳 |
-| 拖顶点、拖区域 | 后端接口对接逻辑 |
-| 重叠与自交校验 | 表单与业务侧栏 |
-| 撤销栈 | 持久化存储逻辑 |
+## Demo
 
-## 安装
+![react-i-zone demo](https://raw.githubusercontent.com/jdeseva/react-i-zone/main/assets/demo-kit-small.gif)
+
+## Install
 
 ```bash
 npm install react-i-zone
 ```
 
-Peer：`react`、`react-dom`、`antd`、`@ant-design/icons`（≥5 / ≥18）
+Peer dependencies: `react`, `react-dom`, `antd`, `@ant-design/icons` (React 18+, AntD 5+).
 
-## 使用
+## 30-Second Usage
 
 ```tsx
+import { useState } from 'react';
 import { MapRegionEditor, type PolygonRegion } from 'react-i-zone';
 
-const [regions, setRegions] = useState<PolygonRegion[]>([]);
+export default function Demo() {
+  const [regions, setRegions] = useState<PolygonRegion[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
-<MapRegionEditor
-  mapImageUrl="https://example.com/map.png"
-  mapWidth={1334}
-  mapHeight={750}
-  regions={regions}
-  onChange={setRegions}
-  selectedRegionId={selectedId}
-  onSelectedRegionIdChange={setSelectedId}
-/>
+  return (
+    <MapRegionEditor
+      mapImageUrl="https://example.com/your-image.png"
+      mapWidth={1334}
+      mapHeight={750}
+      regions={regions}
+      onChange={setRegions}
+      selectedRegionId={selectedId}
+      onSelectedRegionIdChange={setSelectedId}
+    />
+  );
+}
 ```
 
-### 类型
+## Features
+
+- Polygon drawing and close-to-first-point completion
+- Vertex drag and whole-region drag
+- Add/remove polygon vertices in edit mode
+- Self-intersection validation and overlap validation
+- Undo stack for polygon edge editing
+- Controlled component API (`regions` + `onChange`)
+
+## Scope
+
+| Included | Not Included |
+|------|-------------------------|
+| Polygon draw / close / edit | Business payload schema |
+| Vertex add/remove | Modal / Drawer shell |
+| Vertex/region drag | Backend API integration |
+| Geometry validation | Form/sidebar business logic |
+| Undo stack | Persistence/storage workflow |
+
+## Types
 
 ```ts
 interface PolygonRegion {
   id: string;
-  polygon: Vec2[]; // 有序顶点环，≥3，隐式闭合
+  polygon: Vec2[]; // ordered polygon ring, >= 3 points, implicitly closed
   name?: string;
 }
 ```
@@ -65,30 +87,66 @@ interface MapRegionEditorProps {
 }
 ```
 
-| Prop | 类型 | 默认值 | 说明 |
+| Prop | Type | Default | Description |
 |------|------|--------|------|
-| `mapImageUrl` | `string` | - | 编辑背景图 URL |
-| `mapWidth` | `number` | `1334` | 画布逻辑宽度 |
-| `mapHeight` | `number` | `750` | 画布逻辑高度 |
-| `regions` | `PolygonRegion[]` | - | 受控热区数据 |
-| `onChange` | `(regions: PolygonRegion[]) => void` | - | 热区变更回调（绘制完成、改边数、拖拽结束等） |
-| `selectedRegionId` | `string \| null` | `undefined` | 当前选中的热区 id（可选受控） |
-| `onSelectedRegionIdChange` | `(id: string \| null) => void` | - | 选中热区变化回调 |
-| `className` | `string` | - | 根节点 className |
+| `mapImageUrl` | `string` | - | Background image URL |
+| `mapWidth` | `number` | `1334` | Logical canvas width |
+| `mapHeight` | `number` | `750` | Logical canvas height |
+| `regions` | `PolygonRegion[]` | - | Controlled region list |
+| `onChange` | `(regions: PolygonRegion[]) => void` | - | Triggered on draw complete, vertex/region drag end, and edge edits |
+| `selectedRegionId` | `string \| null` | `undefined` | Controlled selected region id |
+| `onSelectedRegionIdChange` | `(id: string \| null) => void` | - | Triggered when selection changes |
+| `className` | `string` | - | Root className |
 
-> 说明：拖拽过程中只做本地预览，不会持续触发 `onChange`；鼠标抬起后统一提交一次。
+Note: while dragging, the component updates local preview first and emits `onChange` on mouse up.
 
-### 几何工具（可选）
+## Geometry Utilities (Optional)
 
-`validateSimplePolygon`、`applyDraftPoint`、`isRegionPlacementInvalid` 等见包导出。
+Includes helpers like:
+- `validateSimplePolygon`
+- `applyDraftPoint`
+- `applyVertexMove`
+- `isRegionPlacementInvalid`
+- `normalizeClosedPolygon`
 
-## 开发预览
+## FAQ
+
+### Is this a full map business editor?
+
+No. `react-i-zone` is a reusable polygon geometry editor component.
+Business data mapping, API serialization, and side panel forms should stay in the host app.
+
+### Does it support controlled mode?
+
+Yes. The editor is designed for controlled usage with `regions` and `onChange`.
+
+### Can I use it for image annotation?
+
+Yes. Typical use cases: image hotspot tagging, polygon annotation, interactive region selection.
+
+### I got `Cannot read properties of null (reading 'useRef')` in dev
+
+This is usually caused by duplicate React instances when linking local packages.
+In Vite host apps, add:
+
+```ts
+resolve: {
+  dedupe: ['react', 'react-dom'],
+  alias: {
+    react: path.resolve(__dirname, './node_modules/react'),
+    'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+  },
+}
+```
+
+## Dev
 
 ```bash
 npm install
 npm run dev    # http://localhost:5175
 npm run build
-npm test
+npm run test
+npm run pack:check
 ```
 
 ## License

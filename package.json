@@ -25,6 +25,7 @@
     "dist/index.css",
     "dist/index.d.ts",
     "README.md",
+    "README.zh-CN.md",
     "LICENSE"
   ],
   "scripts": {
@@ -62,8 +63,14 @@
   },
   "keywords": [
     "react",
+    "react-component",
     "polygon",
     "zone",
+    "polygon-editor",
+    "polygon-annotation",
+    "image-annotation",
+    "image-hotspot",
+    "hotspot",
     "region-editor",
     "react-i-zone",
     "i-zone",
@@ -73,6 +80,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jdeseva/react-i-zone.git"
+  },
+  "homepage": "https://github.com/jdeseva/react-i-zone#readme",
+  "bugs": {
+    "url": "https://github.com/jdeseva/react-i-zone/issues"
   },
   "publishConfig": {
     "access": "public"
