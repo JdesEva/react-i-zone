@@ -1,0 +1,17 @@
+src/
+dev/
+node_modules/
+dist/**/*.map
+.vite/
+coverage/
+*.log
+.DS_Store
+.env*
+tsconfig.json
+vite.config.ts
+vite.lib.config.ts
+vitest.config.ts
+TODO.md
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

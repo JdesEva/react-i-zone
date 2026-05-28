@@ -1,0 +1,263 @@
+.editorRoot {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 420px;
+  min-width: 0;
+}
+
+.editor {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.canvasWrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.canvas {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #f5f5f5;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: crosshair;
+
+  &.panning {
+    cursor: default;
+  }
+
+  &.panReady {
+    cursor: grab;
+  }
+
+  &.dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+}
+
+.canvasZoomBar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  pointer-events: auto;
+  cursor: default;
+}
+
+.zoomLabel {
+  display: inline-block;
+  min-width: 48px;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 24px;
+}
+
+.canvasMapLayer {
+  position: absolute;
+  z-index: 1;
+  transform-origin: 0 0;
+  pointer-events: auto;
+}
+
+/** Modal 动画期间 layout 尚未量到尺寸时，先铺满画布避免「空白」 */
+.canvasMapLayerFit {
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.canvasLoading {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(245, 245, 245, 0.92);
+  pointer-events: none;
+}
+
+.bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  user-select: none;
+  pointer-events: none;
+}
+
+.svgLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+.regionPolygon {
+  pointer-events: auto;
+}
+
+.regionPolygonSelected {
+  pointer-events: none;
+}
+
+.regionPolygonEditing {
+  pointer-events: none;
+}
+
+.edgeEditCursor {
+  cursor: crosshair;
+}
+
+.draftOverlay {
+  pointer-events: none;
+}
+
+.vertexHandleHit {
+  pointer-events: all;
+  cursor: grab;
+}
+
+.vertexHandle {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.regionEditIconBtn {
+  position: absolute;
+  z-index: 8;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid #1677ff;
+  border-radius: 50%;
+  background: #fff;
+  color: #1677ff;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    color: #4096ff;
+    border-color: #4096ff;
+  }
+}
+
+.regionEditIconBtnActive {
+  background: #1677ff;
+  color: #fff;
+
+  &:hover {
+    background: #4096ff;
+    border-color: #4096ff;
+    color: #fff;
+  }
+}
+
+.edgeHandle {
+  pointer-events: all;
+  cursor: copy;
+  fill: #52c41a;
+  stroke: #fff;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.95;
+
+  &:hover {
+    fill: #73d13d;
+  }
+}
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 16px;
+}
+
+.sidebarScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+}
+
+.regionList {
+  flex: 0 1 auto;
+  overflow: auto;
+  max-height: min(200px, 26vh);
+}
+
+.sidebarCard {
+  flex-shrink: 0;
+
+  :global(.ant-card-body) {
+    padding: 12px;
+  }
+}
+
+.regionItem {
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  border: 1px solid transparent;
+
+  &:hover {
+    background: #fafafa;
+  }
+
+  &.active {
+    background: #e6f4ff;
+    border-color: #91caff;
+  }
+}
+
+.ctxMenu {
+  position: fixed;
+  z-index: 1100;
+  min-width: 260px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.hintText {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+  line-height: 1.5;
+}
